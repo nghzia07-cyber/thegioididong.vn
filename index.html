@@ -101,11 +101,15 @@
                     </button>
                     <div class="relative">
                         <button id="userBtn" onclick="toggleAuthModal()" class="flex items-center gap-2 bg-white/5 hover:bg-white/10 text-white pl-3 pr-4 py-2 rounded-full transition border border-white/10 hover:border-primary/50">
-                            <div class="w-6 h-6 rounded-full bg-gradient-to-tr from-primary to-secondary flex items-center justify-center text-[10px] text-black font-bold"><i class="fa-solid fa-user"></i></div>
+                            <!-- User Avatar / Icon Container -->
+                            <div class="w-6 h-6 rounded-full bg-gradient-to-tr from-primary to-secondary flex items-center justify-center text-[10px] text-black font-bold overflow-hidden relative">
+                                <img id="navUserAvatar" src="" class="absolute inset-0 w-full h-full object-cover hidden">
+                                <i id="navUserIcon" class="fa-solid fa-user"></i>
+                            </div>
                             <span id="userNameDisplay" class="text-xs font-semibold hidden sm:block">Đăng nhập</span>
                         </button>
                         <div id="userDropdown" class="hidden absolute right-0 mt-3 w-48 bg-[#0f172a] rounded-xl shadow-2xl border border-primary/30 py-2 z-50 animate-fade-up">
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-primary/10 hover:text-primary transition"><i class="fa-regular fa-user mr-2"></i> Hồ sơ</a>
+                            <button onclick="openProfile()" class="block w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-primary/10 hover:text-primary transition"><i class="fa-regular fa-id-card mr-2"></i> Hồ sơ của tôi</button>
                             <button onclick="handleLogout()" class="block w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-white/5 transition"><i class="fa-solid fa-sign-out-alt mr-2"></i> Đăng xuất</button>
                         </div>
                     </div>
@@ -200,14 +204,11 @@
         <!-- Warranty View -->
         <div id="view-warranty" class="hidden max-w-4xl mx-auto px-4 py-20 animate-fade-up">
              <h2 class="text-3xl font-bold text-white mb-8 text-center">Trung Tâm Bảo Hành</h2>
-             <div class="grid md:grid-cols-2 gap-8">
-                 <div class="bg-white/5 p-8 rounded-2xl border border-white/10"><h3 class="text-xl font-bold text-primary mb-4">Chính Sách</h3><ul class="space-y-3 text-gray-300 text-sm"><li class="flex gap-3"><i class="fa-solid fa-check text-green-400"></i> Bảo hành chính hãng 12 tháng</li><li class="flex gap-3"><i class="fa-solid fa-check text-green-400"></i> 1 đổi 1 trong 30 ngày đầu</li></ul></div>
-                 <div class="bg-white/5 p-8 rounded-2xl border border-white/10"><h3 class="text-xl font-bold text-primary mb-4">Địa Điểm</h3><p class="text-gray-300 text-sm">P. Tân An, TP. Buôn Ma Thuột</p></div>
-             </div>
+             <div class="grid md:grid-cols-2 gap-8"><div class="bg-white/5 p-8 rounded-2xl border border-white/10"><h3 class="text-xl font-bold text-primary mb-4">Chính Sách</h3><ul class="space-y-3 text-gray-300 text-sm"><li class="flex gap-3"><i class="fa-solid fa-check text-green-400"></i> Bảo hành chính hãng 12 tháng</li><li class="flex gap-3"><i class="fa-solid fa-check text-green-400"></i> 1 đổi 1 trong 30 ngày đầu</li></ul></div><div class="bg-white/5 p-8 rounded-2xl border border-white/10"><h3 class="text-xl font-bold text-primary mb-4">Địa Điểm</h3><p class="text-gray-300 text-sm">P. Tân An, TP. Buôn Ma Thuột</p></div></div>
         </div>
     </main>
 
-    <!-- AUTH MODAL (REDESIGNED) -->
+    <!-- AUTH MODAL (REDESIGNED + PROFESSIONAL LINKS) -->
     <div id="authModal" class="fixed inset-0 z-[100] hidden">
         <div class="absolute inset-0 bg-[#020617]/90 backdrop-blur-xl transition-opacity" onclick="toggleAuthModal()"></div>
         <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-md px-4">
@@ -215,41 +216,104 @@
                 <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-secondary to-primary"></div>
                 <button class="absolute top-4 right-4 text-gray-400 hover:text-white transition" onclick="toggleAuthModal()"><i class="fa-solid fa-xmark text-xl"></i></button>
                 
-                <!-- LOGIN FORM -->
+                <!-- LOGIN FORM CONTAINER -->
                 <div id="loginContainer" class="p-8">
                     <div class="text-center mb-6">
                         <h3 class="text-2xl font-bold text-white mb-2 font-tech tracking-wide">ĐĂNG NHẬP</h3>
                         <p class="text-gray-400 text-xs">Chào mừng bạn quay trở lại</p>
                     </div>
                     <form class="space-y-4" onsubmit="handleLogin(event)">
-                        <div class="space-y-1"><label class="text-xs text-gray-400 ml-1">Email / Số điện thoại</label><input type="email" placeholder="name@example.com" class="auth-input" required></div>
-                        <div class="space-y-1"><label class="text-xs text-gray-400 ml-1">Mật khẩu</label><input type="password" placeholder="••••••••" class="auth-input" required></div>
-                        <div class="text-right"><a href="#" class="text-xs text-primary hover:text-white transition">Quên mật khẩu?</a></div>
-                        <button type="submit" class="w-full btn-glow py-3.5 rounded-xl text-black uppercase tracking-wider text-sm">Truy Cập Ngay</button>
+                        <div class="relative">
+                            <i class="fa-solid fa-envelope absolute left-4 top-3.5 text-gray-500"></i>
+                            <input type="text" placeholder="Email hoặc Số điện thoại" class="auth-input" required>
+                        </div>
+                        <div class="relative">
+                            <i class="fa-solid fa-lock absolute left-4 top-3.5 text-gray-500"></i>
+                            <input type="password" placeholder="Mật khẩu" class="auth-input" required>
+                        </div>
+                        <div class="text-right">
+                            <a href="#" class="text-xs text-primary hover:text-white transition">Quên mật khẩu?</a>
+                        </div>
+                        <button type="submit" class="w-full btn-glow py-3.5 rounded-xl text-black uppercase tracking-wider text-sm font-bold shadow-lg shadow-primary/20">Đăng Nhập</button>
                     </form>
-                    <div class="relative flex items-center justify-center my-6"><div class="h-px bg-white/10 w-full absolute"></div><span class="bg-[#0f172a] px-3 text-[10px] text-gray-500 relative uppercase tracking-widest">Hoặc tiếp tục với</span></div>
-                    <div class="grid grid-cols-2 gap-4 mb-6">
-                        <a href="https://accounts.google.com/signin" target="_blank" class="flex items-center justify-center gap-2 py-2.5 bg-white text-gray-900 rounded-xl font-bold hover:bg-gray-200 transition text-xs"><img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-4 h-4"> Google</a>
-                        <a href="https://www.facebook.com/login" target="_blank" class="flex items-center justify-center gap-2 py-2.5 bg-[#1877F2] text-white rounded-xl font-bold hover:bg-[#166fe5] transition text-xs"><i class="fa-brands fa-facebook text-base"></i> Facebook</a>
+
+                    <div class="relative flex items-center justify-center my-6">
+                        <div class="h-px bg-white/10 w-full absolute"></div>
+                        <span class="bg-[#0f172a] px-3 text-[10px] text-gray-500 relative uppercase tracking-widest z-10">Hoặc tiếp tục với</span>
                     </div>
-                    <div class="text-center text-sm text-gray-400">Chưa có tài khoản? <a href="#" onclick="switchAuthMode('register')" class="text-primary font-bold hover:text-white transition ml-1">Đăng ký ngay</a></div>
+
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <!-- REAL LINKS FOR SOCIAL LOGIN -->
+                        <a href="https://accounts.google.com/signin" target="_blank" class="flex items-center justify-center gap-2 py-2.5 bg-white text-gray-900 rounded-xl font-bold hover:bg-gray-200 transition text-xs">
+                            <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-4 h-4"> Google
+                        </a>
+                        <a href="https://www.facebook.com/login" target="_blank" class="flex items-center justify-center gap-2 py-2.5 bg-[#1877F2] text-white rounded-xl font-bold hover:bg-[#166fe5] transition text-xs">
+                            <i class="fa-brands fa-facebook text-base"></i> Facebook
+                        </a>
+                    </div>
+
+                    <div class="text-center text-sm text-gray-400">
+                        Chưa có tài khoản? <a href="#" onclick="switchAuthMode('register')" class="text-primary font-bold hover:text-white transition ml-1">Đăng ký ngay</a>
+                    </div>
                 </div>
 
-                <!-- REGISTER FORM -->
+                <!-- REGISTER FORM CONTAINER (Hidden by default) -->
                 <div id="registerContainer" class="p-8 hidden">
                     <div class="text-center mb-6">
                         <h3 class="text-2xl font-bold text-white mb-2 font-tech tracking-wide">TẠO TÀI KHOẢN</h3>
                         <p class="text-gray-400 text-xs">Trở thành thành viên Y Nghia Tech</p>
                     </div>
                     <form class="space-y-4" onsubmit="handleRegister(event)">
-                        <div class="space-y-1"><label class="text-xs text-gray-400 ml-1">Họ và tên</label><input type="text" id="regName" placeholder="Nhập họ tên của bạn" class="auth-input" required></div>
-                        <div class="space-y-1"><label class="text-xs text-gray-400 ml-1">Email</label><input type="email" placeholder="name@example.com" class="auth-input" required></div>
-                        <div class="space-y-1"><label class="text-xs text-gray-400 ml-1">Mật khẩu mới</label><input type="password" placeholder="••••••••" class="auth-input" required></div>
-                        <button type="submit" class="w-full btn-glow py-3.5 rounded-xl text-black uppercase tracking-wider text-sm">Đăng Ký Thành Viên</button>
+                        <div class="relative">
+                            <i class="fa-solid fa-user absolute left-4 top-3.5 text-gray-500"></i>
+                            <input type="text" id="regName" placeholder="Họ và tên" class="auth-input" required>
+                        </div>
+                        <div class="relative">
+                            <i class="fa-solid fa-envelope absolute left-4 top-3.5 text-gray-500"></i>
+                            <input type="email" placeholder="Email đăng ký" class="auth-input" required>
+                        </div>
+                        <div class="relative">
+                            <i class="fa-solid fa-lock absolute left-4 top-3.5 text-gray-500"></i>
+                            <input type="password" placeholder="Mật khẩu mới" class="auth-input" required>
+                        </div>
+                        <button type="submit" class="w-full btn-glow py-3.5 rounded-xl text-black uppercase tracking-wider text-sm font-bold shadow-lg shadow-primary/20">Đăng Ký Thành Viên</button>
                     </form>
-                    <div class="text-center mt-6 text-sm text-gray-400">Đã có tài khoản? <a href="#" onclick="switchAuthMode('login')" class="text-primary font-bold hover:text-white transition ml-1">Đăng nhập</a></div>
+                    <div class="text-center mt-8 text-sm text-gray-400">
+                        Đã có tài khoản? <a href="#" onclick="switchAuthMode('login')" class="text-primary font-bold hover:text-white transition ml-1">Đăng nhập</a>
+                    </div>
                 </div>
-
+            </div>
+        </div>
+    </div>
+    
+    <!-- PROFILE MODAL -->
+    <div id="profileModal" class="fixed inset-0 z-[105] hidden">
+        <div class="absolute inset-0 bg-[#020617]/90 backdrop-blur-xl transition-opacity" onclick="closeProfile()"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-md px-4">
+            <div class="bg-[#0f172a] rounded-2xl shadow-[0_0_50px_rgba(0,242,255,0.2)] border border-primary/30 overflow-hidden relative animate-fade-up">
+                <button class="absolute top-4 right-4 text-gray-400 hover:text-white transition" onclick="closeProfile()"><i class="fa-solid fa-xmark text-xl"></i></button>
+                <div class="p-8">
+                    <h3 class="text-2xl font-bold text-white mb-6 text-center">Hồ Sơ Của Tôi</h3>
+                    <form onsubmit="saveProfile(event)" class="space-y-6">
+                        <div class="flex justify-center mb-6">
+                            <div class="relative w-24 h-24 group cursor-pointer">
+                                <div class="w-full h-full rounded-full overflow-hidden border-2 border-primary shadow-[0_0_20px_rgba(0,242,255,0.3)]">
+                                    <img id="profileAvatarPreview" src="https://i.pravatar.cc/150?img=3" class="w-full h-full object-cover">
+                                </div>
+                                <div class="absolute inset-0 bg-black/60 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                                    <i class="fa-solid fa-camera text-white text-xl"></i>
+                                </div>
+                                <input type="file" id="avatarInput" accept="image/*" class="hidden" onchange="handleAvatarChange(this)">
+                                <label for="avatarInput" class="absolute inset-0 cursor-pointer"></label>
+                            </div>
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-xs text-gray-400 ml-1">Tên hiển thị</label>
+                            <input type="text" id="profileNameInput" class="auth-input" required>
+                        </div>
+                        <button type="submit" class="w-full btn-glow py-3.5 rounded-xl text-black uppercase tracking-wider text-sm font-bold">Lưu Thay Đổi</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -296,7 +360,6 @@
             { id: 705, code:'ACER5', category: 'laptop', brand: 'Acer', name: 'Acer Nitro 5', price: 19990000, image: 'https://images.unsplash.com/photo-1593640408182-31c70c8268f5?q=80&w=600', specs: { screen: '15.6"', ram: '8GB', chip: 'i5', rom: '512GB' }, desc: 'Gaming.' },
              { id: 801, code:'IP14PM', category: 'phone', brand: 'Apple', name: 'iPhone 14 Pro Max', price: 26990000, image: 'https://images.unsplash.com/photo-1678685888221-cda773a3dcd9?q=80&w=600', specs: { screen: '6.7"', ram: '6GB', rom: '128GB', cpu: 'A16' }, desc: 'Dynamic Island.' },
         ];
-        // Populate data
         for(let i=0; i<40; i++) { const b = products[i%products.length]; products.push({...b, id: 9000+i, code: b.code+'-'+i, name: b.name+' '+(i+1)}); }
 
         let cart = [], isLoggedIn = false, currentUser = null, currentCategory = 'all', currentBrand = 'All', currentPriceRange = 'all';
@@ -331,6 +394,7 @@
             if(data.length===0) nr.classList.remove('hidden'); else { nr.classList.add('hidden'); data.forEach(p => c.innerHTML += `<div class="product-card group rounded-2xl overflow-hidden cursor-pointer relative" onclick="openModal(${p.id})"><div class="relative pt-[100%] bg-[#0f172a]/50"><img src="${p.image}" class="absolute inset-0 w-full h-full object-contain p-6 group-hover:scale-110 transition duration-500"></div><div class="p-5"><div class="flex justify-between items-center mb-1"><div class="text-xs text-gray-500 font-medium uppercase">${p.brand}</div><div class="text-[10px] text-gray-600 bg-white/5 px-1.5 py-0.5 rounded">#${p.code}</div></div><h3 class="font-bold text-white text-lg mb-2 line-clamp-1">${p.name}</h3><div class="flex justify-between"><span class="text-primary font-bold">${new Intl.NumberFormat('vi-VN').format(p.price)}đ</span><button onclick="event.stopPropagation(); addToCart(${p.id})" class="w-8 h-8 rounded-full bg-white/10 hover:bg-primary hover:text-black flex justify-center items-center"><i class="fa-solid fa-plus"></i></button></div></div></div>`); }
         }
 
+        // Modal
         function openModal(id) {
             const p = products.find(x => x.id === id); if(!p) return;
             document.getElementById('modalTitle').innerText = p.name; document.getElementById('modalImage').src = p.image; document.getElementById('modalPrice').innerText = new Intl.NumberFormat('vi-VN').format(p.price)+'đ'; document.getElementById('modalDesc').innerText = p.desc || '...'; document.getElementById('modalCode').innerText = '#' + p.code;
@@ -340,6 +404,8 @@
             document.getElementById('productModal').classList.remove('hidden');
         }
         function closeModal() { document.getElementById('productModal').classList.add('hidden'); }
+
+        // Cart & Checkout
         function toggleCart() { document.getElementById('cartDrawer').classList.toggle('translate-x-full'); }
         function addToCart(id) { const p=products.find(x=>x.id===id); const i=cart.find(x=>x.id===id); if(i) i.qty++; else cart.push({...p,qty:1}); updateCartUI(); showToast('Đã thêm vào giỏ'); }
         function updateCartUI() {
@@ -356,19 +422,86 @@
         function toggleBankInfo(show) { const p = document.getElementById('bankInfoPanel'); if(show) p.classList.remove('hidden'); else p.classList.add('hidden'); }
         function processCheckout(e) { e.preventDefault(); showToast("Đặt hàng thành công!"); cart=[]; updateCartUI(); closeCheckout(); }
 
-        // Auth
-        function toggleAuthModal() { if(isLoggedIn) document.getElementById('userDropdown').classList.toggle('hidden'); else { document.getElementById('authModal').classList.toggle('hidden'); switchAuthMode('login'); } }
-        function switchAuthMode(mode) { 
-            const login = document.getElementById('loginContainer');
-            const register = document.getElementById('registerContainer');
+        // Auth (Switch Mode Logic - Updated)
+        function toggleAuthModal() { 
+            if(isLoggedIn) {
+                document.getElementById('userDropdown').classList.toggle('hidden'); 
+            } else { 
+                document.getElementById('authModal').classList.toggle('hidden'); 
+                switchAuthMode('login'); 
+            } 
+        }
+        
+        function switchAuthMode(mode) {
+            const login = document.getElementById('loginContainer'); const register = document.getElementById('registerContainer');
             if (mode === 'login') { login.classList.remove('hidden'); register.classList.add('hidden'); }
             else { login.classList.add('hidden'); register.classList.remove('hidden'); }
         }
         function handleLogin(e) { e.preventDefault(); handleSocialLogin('Email'); }
         function handleRegister(e) { e.preventDefault(); handleSocialLogin('Đăng ký'); }
-        function handleSocialLogin(p) { isLoggedIn=true; currentUser={name:`${p} User`}; localStorage.setItem('tgdd_user',JSON.stringify(currentUser)); updateUserUI(); document.getElementById('authModal').classList.add('hidden'); showToast(`Đăng nhập ${p} thành công`); }
+        function handleSocialLogin(p) { isLoggedIn=true; currentUser={name:`${p} User`, avatar: null}; localStorage.setItem('tgdd_user',JSON.stringify(currentUser)); updateUserUI(); document.getElementById('authModal').classList.add('hidden'); showToast(`Đăng nhập ${p} thành công`); }
         function handleLogout() { isLoggedIn=false; currentUser=null; localStorage.removeItem('tgdd_user'); updateUserUI(); showToast('Đã đăng xuất'); }
-        function updateUserUI() { const el=document.getElementById('userNameDisplay'); if(isLoggedIn){el.innerText=currentUser.name;}else{el.innerText='Đăng nhập';document.getElementById('userDropdown').classList.add('hidden');} }
+        function updateUserUI() { 
+            const nameEl = document.getElementById('userNameDisplay');
+            const avatarEl = document.getElementById('navUserAvatar');
+            const iconEl = document.getElementById('navUserIcon');
+            const userDropdown = document.getElementById('userDropdown');
+
+            if(isLoggedIn){
+                nameEl.innerText = currentUser.name;
+                if(currentUser.avatar) {
+                    avatarEl.src = currentUser.avatar;
+                    avatarEl.classList.remove('hidden');
+                    iconEl.classList.add('hidden');
+                } else {
+                    avatarEl.classList.add('hidden');
+                    iconEl.classList.remove('hidden');
+                }
+            } else {
+                nameEl.innerText = 'Đăng nhập';
+                avatarEl.classList.add('hidden');
+                iconEl.classList.remove('hidden');
+                userDropdown.classList.add('hidden');
+            } 
+        }
+
+        // Profile
+        function openProfile() {
+            if(!isLoggedIn) return;
+            document.getElementById('profileNameInput').value = currentUser.name;
+            const img = document.getElementById('profileAvatarPreview');
+            img.src = currentUser.avatar || 'https://i.pravatar.cc/150?img=3';
+            document.getElementById('profileModal').classList.remove('hidden');
+            document.getElementById('userDropdown').classList.add('hidden');
+        }
+
+        function closeProfile() {
+            document.getElementById('profileModal').classList.add('hidden');
+        }
+
+        function handleAvatarChange(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('profileAvatarPreview').src = e.target.result;
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function saveProfile(e) {
+            e.preventDefault();
+            const newName = document.getElementById('profileNameInput').value;
+            const newAvatar = document.getElementById('profileAvatarPreview').src;
+            
+            currentUser.name = newName;
+            currentUser.avatar = newAvatar;
+            
+            localStorage.setItem('tgdd_user', JSON.stringify(currentUser));
+            updateUserUI();
+            showToast('Cập nhật hồ sơ thành công!');
+            closeProfile();
+        }
 
         // Utils
         function openVideo() { document.getElementById('videoModal').classList.remove('hidden'); }
@@ -378,7 +511,15 @@
         function toggleMobileMenu() { document.getElementById('mobileMenu').classList.toggle('hidden'); }
         function toggleChat() { const w=document.getElementById('chatWindow'); const b=document.getElementById('chatBtn'); if(w.classList.contains('hidden')){ w.classList.remove('hidden'); setTimeout(()=>{w.classList.remove('scale-90','opacity-0');b.classList.add('scale-0');},10); }else{ w.classList.add('scale-90','opacity-0'); b.classList.remove('scale-0'); setTimeout(()=>w.classList.add('hidden'),300); } }
         function handleChatKey(e) { if(e.key==='Enter') sendMessage(); }
-        function sendMessage() { const i=document.getElementById('chatInput'); const m=i.value.trim(); if(!m) return; const d=document.createElement('div'); d.className='flex justify-end'; d.innerHTML=`<div class="bg-primary text-black p-2 rounded-xl text-sm font-bold">${m}</div>`; document.getElementById('chatMessages').appendChild(d); i.value=''; setTimeout(()=>{const r=document.createElement('div'); r.className='flex gap-2'; r.innerHTML=`<div class="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center text-primary text-xs border border-primary/20"><i class="fa-solid fa-robot"></i></div><div class="bg-[#1e293b] border border-white/5 p-3 rounded-2xl rounded-tl-none text-sm text-gray-300 max-w-[85%]">Chào bạn! Tôi có thể giúp gì về sản phẩm hoặc đơn hàng không?</div>`; document.getElementById('chatMessages').appendChild(r);},1000); }
+        function sendMessage() {
+            const input = document.getElementById('chatInput'); const msg = input.value.trim(); if(!msg) return;
+            const d = document.createElement('div'); d.className='flex justify-end'; d.innerHTML=`<div class="bg-primary text-black p-2 rounded-xl text-sm font-bold">${msg}</div>`; document.getElementById('chatMessages').appendChild(d);
+            const keywords = { 'giá': 'Dạ giá sản phẩm được niêm yết trên website ạ. Bạn quan tâm mẫu nào?', 'bảo hành': 'Sản phẩm được bảo hành chính hãng 12 tháng, 1 đổi 1 trong 30 ngày đầu nếu lỗi.', 'địa chỉ': 'Shop ở Phường Tân An, TP. Buôn Ma Thuột ạ.', 'ship': 'Shop miễn phí vận chuyển toàn quốc cho đơn từ 500k.', 'iphone': 'Dạ bên em có sẵn các dòng iPhone 14, 16 và 17 concept ạ.', 'laptop': 'Laptop đang có ưu đãi giảm giá sốc, bạn xem mục Laptop nhé.', 'hello': 'Chào bạn! Mình là Trợ lý ảo của Nghĩa. Mình có thể giúp gì cho bạn?', 'chào': 'Chào bạn! Mình là Trợ lý ảo của Nghĩa. Mình có thể giúp gì cho bạn?' };
+            let reply = "Dạ câu này hơi khó, bạn vui lòng liên hệ hotline 0388 977 874 để được tư vấn kỹ hơn nha!";
+            const lowerMsg = msg.toLowerCase(); for (const key in keywords) { if (lowerMsg.includes(key)) { reply = keywords[key]; break; } }
+            input.value=''; 
+            setTimeout(()=>{const r=document.createElement('div'); r.className='flex gap-2'; r.innerHTML=`<div class="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center text-primary text-xs border border-primary/20"><i class="fa-solid fa-robot"></i></div><div class="bg-[#1e293b] border border-white/5 p-3 rounded-2xl rounded-tl-none text-sm text-gray-300 max-w-[85%]">${reply}</div>`; const c=document.getElementById('chatMessages'); c.appendChild(r); c.scrollTop = c.scrollHeight;},1000); 
+        }
 
         window.onload = function() {
              const storedUser = localStorage.getItem('tgdd_user');
