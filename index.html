@@ -53,6 +53,7 @@
         .animate-fade-up { animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         
+        /* UI Helpers */
         .timeline-item { position: relative; padding-left: 2rem; padding-bottom: 1.5rem; border-left: 2px solid #1e293b; }
         .timeline-item:last-child { border-left: 2px solid transparent; }
         .timeline-item::before { content: ''; position: absolute; left: -0.35rem; top: 0; width: 0.7rem; height: 0.7rem; border-radius: 50%; background-color: #475569; }
@@ -208,7 +209,7 @@
         </div>
     </main>
 
-    <!-- AUTH MODAL (REDESIGNED + PROFESSIONAL LINKS) -->
+    <!-- AUTH MODAL (REDESIGNED + PROFESSIONAL LINKS & MOCK FORMS) -->
     <div id="authModal" class="fixed inset-0 z-[100] hidden">
         <div class="absolute inset-0 bg-[#020617]/90 backdrop-blur-xl transition-opacity" onclick="toggleAuthModal()"></div>
         <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-md px-4">
@@ -223,17 +224,9 @@
                         <p class="text-gray-400 text-xs">Chào mừng bạn quay trở lại</p>
                     </div>
                     <form class="space-y-4" onsubmit="handleLogin(event)">
-                        <div class="relative">
-                            <i class="fa-solid fa-envelope absolute left-4 top-3.5 text-gray-500"></i>
-                            <input type="text" placeholder="Email hoặc Số điện thoại" class="auth-input" required>
-                        </div>
-                        <div class="relative">
-                            <i class="fa-solid fa-lock absolute left-4 top-3.5 text-gray-500"></i>
-                            <input type="password" placeholder="Mật khẩu" class="auth-input" required>
-                        </div>
-                        <div class="text-right">
-                            <a href="#" class="text-xs text-primary hover:text-white transition">Quên mật khẩu?</a>
-                        </div>
+                        <div class="relative"><i class="fa-solid fa-envelope absolute left-4 top-3.5 text-gray-500"></i><input type="text" placeholder="Email hoặc Số điện thoại" class="auth-input" required></div>
+                        <div class="relative"><i class="fa-solid fa-lock absolute left-4 top-3.5 text-gray-500"></i><input type="password" placeholder="Mật khẩu" class="auth-input" required></div>
+                        <div class="text-right"><a href="#" class="text-xs text-primary hover:text-white transition">Quên mật khẩu?</a></div>
                         <button type="submit" class="w-full btn-glow py-3.5 rounded-xl text-black uppercase tracking-wider text-sm font-bold shadow-lg shadow-primary/20">Đăng Nhập</button>
                     </form>
 
@@ -243,13 +236,13 @@
                     </div>
 
                     <div class="grid grid-cols-2 gap-4 mb-6">
-                        <!-- REAL LINKS FOR SOCIAL LOGIN -->
-                        <a href="https://accounts.google.com/signin" target="_blank" class="flex items-center justify-center gap-2 py-2.5 bg-white text-gray-900 rounded-xl font-bold hover:bg-gray-200 transition text-xs">
+                        <!-- Switch to Social Forms -->
+                        <button onclick="showSocialForm('Google')" class="flex items-center justify-center gap-2 py-2.5 bg-white text-gray-900 rounded-xl font-bold hover:bg-gray-200 transition text-xs">
                             <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-4 h-4"> Google
-                        </a>
-                        <a href="https://www.facebook.com/login" target="_blank" class="flex items-center justify-center gap-2 py-2.5 bg-[#1877F2] text-white rounded-xl font-bold hover:bg-[#166fe5] transition text-xs">
+                        </button>
+                        <button onclick="showSocialForm('Facebook')" class="flex items-center justify-center gap-2 py-2.5 bg-[#1877F2] text-white rounded-xl font-bold hover:bg-[#166fe5] transition text-xs">
                             <i class="fa-brands fa-facebook text-base"></i> Facebook
-                        </a>
+                        </button>
                     </div>
 
                     <div class="text-center text-sm text-gray-400">
@@ -257,66 +250,64 @@
                     </div>
                 </div>
 
-                <!-- REGISTER FORM CONTAINER (Hidden by default) -->
+                <!-- REGISTER FORM CONTAINER -->
                 <div id="registerContainer" class="p-8 hidden">
                     <div class="text-center mb-6">
                         <h3 class="text-2xl font-bold text-white mb-2 font-tech tracking-wide">TẠO TÀI KHOẢN</h3>
                         <p class="text-gray-400 text-xs">Trở thành thành viên Y Nghia Tech</p>
                     </div>
                     <form class="space-y-4" onsubmit="handleRegister(event)">
-                        <div class="relative">
-                            <i class="fa-solid fa-user absolute left-4 top-3.5 text-gray-500"></i>
-                            <input type="text" id="regName" placeholder="Họ và tên" class="auth-input" required>
-                        </div>
-                        <div class="relative">
-                            <i class="fa-solid fa-envelope absolute left-4 top-3.5 text-gray-500"></i>
-                            <input type="email" placeholder="Email đăng ký" class="auth-input" required>
-                        </div>
-                        <div class="relative">
-                            <i class="fa-solid fa-lock absolute left-4 top-3.5 text-gray-500"></i>
-                            <input type="password" placeholder="Mật khẩu mới" class="auth-input" required>
-                        </div>
+                        <div class="relative"><i class="fa-solid fa-user absolute left-4 top-3.5 text-gray-500"></i><input type="text" id="regName" placeholder="Họ và tên" class="auth-input" required></div>
+                        <div class="relative"><i class="fa-solid fa-envelope absolute left-4 top-3.5 text-gray-500"></i><input type="email" placeholder="Email đăng ký" class="auth-input" required></div>
+                        <div class="relative"><i class="fa-solid fa-lock absolute left-4 top-3.5 text-gray-500"></i><input type="password" placeholder="Mật khẩu mới" class="auth-input" required></div>
                         <button type="submit" class="w-full btn-glow py-3.5 rounded-xl text-black uppercase tracking-wider text-sm font-bold shadow-lg shadow-primary/20">Đăng Ký Thành Viên</button>
                     </form>
                     <div class="text-center mt-8 text-sm text-gray-400">
                         Đã có tài khoản? <a href="#" onclick="switchAuthMode('login')" class="text-primary font-bold hover:text-white transition ml-1">Đăng nhập</a>
                     </div>
                 </div>
+
+                <!-- GOOGLE MOCK FORM -->
+                <div id="googleContainer" class="p-8 hidden bg-white text-gray-800 rounded-b-2xl h-full">
+                    <div class="text-center mb-6">
+                        <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-12 h-12 mx-auto mb-4">
+                        <h3 class="text-xl font-medium mb-1">Đăng nhập bằng Google</h3>
+                        <p class="text-sm text-gray-500">Tiếp tục tới Thế Giới Di Động</p>
+                    </div>
+                    <form class="space-y-4" onsubmit="handleSocialSubmit(event, 'Google')">
+                        <input type="email" placeholder="Email hoặc số điện thoại" class="w-full border border-gray-300 rounded px-3 py-3 text-sm outline-none focus:border-blue-500 transition" required>
+                        <input type="password" placeholder="Mật khẩu" class="w-full border border-gray-300 rounded px-3 py-3 text-sm outline-none focus:border-blue-500 transition" required>
+                        <div class="flex justify-end gap-3 mt-6">
+                             <button type="button" onclick="switchAuthMode('login')" class="text-blue-600 font-bold text-sm px-4 py-2 hover:bg-gray-100 rounded">Hủy</button>
+                             <button type="submit" class="bg-blue-600 text-white text-sm font-bold px-6 py-2 rounded hover:bg-blue-700 transition">Tiếp theo</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- FACEBOOK MOCK FORM -->
+                <div id="facebookContainer" class="p-8 hidden bg-[#f0f2f5] text-gray-800 rounded-b-2xl h-full">
+                     <div class="text-center mb-8">
+                        <i class="fa-brands fa-facebook text-blue-600 text-6xl"></i>
+                    </div>
+                    <form class="space-y-4" onsubmit="handleSocialSubmit(event, 'Facebook')">
+                        <div class="text-center mb-2"><p class="text-lg">Đăng nhập vào Facebook</p></div>
+                        <input type="text" placeholder="Email hoặc số điện thoại" class="w-full border border-gray-300 rounded-lg px-4 py-3 text-sm outline-none focus:border-blue-500 transition" required>
+                        <input type="password" placeholder="Mật khẩu" class="w-full border border-gray-300 rounded-lg px-4 py-3 text-sm outline-none focus:border-blue-500 transition" required>
+                        <button type="submit" class="w-full bg-[#1877F2] text-white text-lg font-bold py-3 rounded-lg hover:bg-[#166fe5] transition">Đăng nhập</button>
+                        <div class="text-center mt-4">
+                            <a href="#" class="text-sm text-blue-600 hover:underline">Quên mật khẩu?</a>
+                            <div class="flex items-center justify-center my-4"><div class="h-px bg-gray-300 flex-1"></div><span class="px-2 text-xs text-gray-500">hoặc</span><div class="h-px bg-gray-300 flex-1"></div></div>
+                            <button type="button" onclick="switchAuthMode('login')" class="bg-[#42b72a] text-white font-bold py-2 px-4 rounded-lg hover:bg-[#36a420] text-sm">Tạo tài khoản mới</button>
+                        </div>
+                    </form>
+                </div>
+
             </div>
         </div>
     </div>
     
     <!-- PROFILE MODAL -->
-    <div id="profileModal" class="fixed inset-0 z-[105] hidden">
-        <div class="absolute inset-0 bg-[#020617]/90 backdrop-blur-xl transition-opacity" onclick="closeProfile()"></div>
-        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-md px-4">
-            <div class="bg-[#0f172a] rounded-2xl shadow-[0_0_50px_rgba(0,242,255,0.2)] border border-primary/30 overflow-hidden relative animate-fade-up">
-                <button class="absolute top-4 right-4 text-gray-400 hover:text-white transition" onclick="closeProfile()"><i class="fa-solid fa-xmark text-xl"></i></button>
-                <div class="p-8">
-                    <h3 class="text-2xl font-bold text-white mb-6 text-center">Hồ Sơ Của Tôi</h3>
-                    <form onsubmit="saveProfile(event)" class="space-y-6">
-                        <div class="flex justify-center mb-6">
-                            <div class="relative w-24 h-24 group cursor-pointer">
-                                <div class="w-full h-full rounded-full overflow-hidden border-2 border-primary shadow-[0_0_20px_rgba(0,242,255,0.3)]">
-                                    <img id="profileAvatarPreview" src="https://i.pravatar.cc/150?img=3" class="w-full h-full object-cover">
-                                </div>
-                                <div class="absolute inset-0 bg-black/60 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
-                                    <i class="fa-solid fa-camera text-white text-xl"></i>
-                                </div>
-                                <input type="file" id="avatarInput" accept="image/*" class="hidden" onchange="handleAvatarChange(this)">
-                                <label for="avatarInput" class="absolute inset-0 cursor-pointer"></label>
-                            </div>
-                        </div>
-                        <div class="space-y-1">
-                            <label class="text-xs text-gray-400 ml-1">Tên hiển thị</label>
-                            <input type="text" id="profileNameInput" class="auth-input" required>
-                        </div>
-                        <button type="submit" class="w-full btn-glow py-3.5 rounded-xl text-black uppercase tracking-wider text-sm font-bold">Lưu Thay Đổi</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div id="profileModal" class="fixed inset-0 z-[105] hidden"><div class="absolute inset-0 bg-[#020617]/90 backdrop-blur-xl transition-opacity" onclick="closeProfile()"></div><div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-md px-4"><div class="bg-[#0f172a] rounded-2xl shadow-[0_0_50px_rgba(0,242,255,0.2)] border border-primary/30 overflow-hidden relative animate-fade-up"><button class="absolute top-4 right-4 text-gray-400 hover:text-white transition" onclick="closeProfile()"><i class="fa-solid fa-xmark text-xl"></i></button><div class="p-8"><h3 class="text-2xl font-bold text-white mb-6 text-center">Hồ Sơ Của Tôi</h3><form onsubmit="saveProfile(event)" class="space-y-6"><div class="flex justify-center mb-6"><div class="relative w-24 h-24 group cursor-pointer"><div class="w-full h-full rounded-full overflow-hidden border-2 border-primary shadow-[0_0_20px_rgba(0,242,255,0.3)]"><img id="profileAvatarPreview" src="https://i.pravatar.cc/150?img=3" class="w-full h-full object-cover"></div><div class="absolute inset-0 bg-black/60 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300"><i class="fa-solid fa-camera text-white text-xl"></i></div><input type="file" id="avatarInput" accept="image/*" class="hidden" onchange="handleAvatarChange(this)"><label for="avatarInput" class="absolute inset-0 cursor-pointer"></label></div></div><div class="space-y-1"><label class="text-xs text-gray-400 ml-1">Tên hiển thị</label><input type="text" id="profileNameInput" class="auth-input" required></div><button type="submit" class="w-full btn-glow py-3.5 rounded-xl text-black uppercase tracking-wider text-sm font-bold">Lưu Thay Đổi</button></form></div></div></div></div>
 
     <!-- Checkout Modal -->
     <div id="checkoutModal" class="fixed inset-0 z-[105] hidden">
@@ -340,7 +331,7 @@
     <div id="cartDrawer" class="fixed inset-y-0 right-0 z-[90] w-full max-w-md bg-[#0f172a] border-l border-white/10 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col"><div class="p-6 border-b border-white/10 flex justify-between items-center"><h2 class="text-xl font-bold text-white">Giỏ Hàng</h2><button onclick="toggleCart()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-2xl"></i></button></div><div id="cartItemsContainer" class="flex-1 overflow-y-auto p-6 space-y-4"></div><div class="p-6 border-t border-white/10 bg-black/20"><div class="flex justify-between items-center mb-4 text-white"><span>Tổng cộng:</span><span id="cartTotal" class="text-xl font-bold text-primary">0₫</span></div><button class="w-full btn-glow py-3 rounded-xl" onclick="openCheckout()">Thanh Toán</button></div></div>
     <div id="toast" class="fixed top-24 right-5 bg-[#0f172a] border border-primary/30 pl-4 pr-6 py-3 rounded-xl shadow-2xl shadow-primary/10 transform translate-x-[120%] transition-transform duration-500 flex items-center gap-3 z-[110]"><div class="w-8 h-8 bg-primary/20 text-primary rounded-full flex items-center justify-center"><i class="fa-solid fa-check"></i></div><div><h4 class="font-bold text-white text-sm">Thông báo</h4><p id="toastMsg" class="text-xs text-gray-400">Thao tác thành công!</p></div></div>
     <button id="chatBtn" onclick="toggleChat()" class="fixed bottom-6 right-6 z-50 btn-glow w-14 h-14 rounded-full flex items-center justify-center text-2xl shadow-lg shadow-primary/30"><i class="fa-solid fa-comment-dots text-black"></i></button>
-    <div id="chatWindow" class="fixed bottom-24 right-6 z-50 w-[340px] bg-[#0f172a] rounded-2xl shadow-2xl hidden flex-col overflow-hidden border border-white/10 transform origin-bottom-right transition-all duration-300 scale-90 opacity-0"><div class="bg-gradient-to-r from-primary to-secondary p-4 flex justify-between items-center"><div class="text-black font-bold text-sm">Trợ lý ảo của Nghĩa</div><button onclick="toggleChat()" class="text-black/80 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button></div><div id="chatMessages" class="h-[320px] overflow-y-auto p-4 space-y-3 bg-black/20"><div class="bg-[#1e293b] border border-white/5 p-3 rounded-2xl rounded-tl-none text-sm text-gray-300 max-w-[85%]">Xin chào! Tôi có thể giúp gì cho bạn?</div></div><div class="p-3 bg-[#0f172a] border-t border-white/10"><div class="relative"><input type="text" id="chatInput" placeholder="Nhập tin nhắn..." class="w-full bg-black/30 rounded-full py-2.5 px-4 pr-10 text-sm text-white focus:outline-none focus:ring-1 focus:ring-primary/50 border border-white/5" onkeypress="handleChatKey(event)"><button onclick="sendMessage()" class="absolute right-1.5 top-1/2 -translate-y-1/2 w-7 h-7 bg-primary text-black rounded-full flex items-center justify-center hover:bg-secondary transition shadow-sm"><i class="fa-solid fa-paper-plane text-[10px]"></i></button></div></div></div>
+    <div id="chatWindow" class="fixed bottom-24 right-6 z-50 w-[340px] bg-[#0f172a] rounded-2xl shadow-2xl hidden flex-col overflow-hidden border border-white/10 transform origin-bottom-right transition-all duration-300 scale-90 opacity-0"><div class="bg-gradient-to-r from-primary to-secondary p-4 flex justify-between items-center"><div class="text-black font-bold text-sm">Chatbot</div><button onclick="toggleChat()" class="text-black/80 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button></div><div id="chatMessages" class="h-[320px] overflow-y-auto p-4 space-y-3 bg-black/20"><div class="bg-[#1e293b] border border-white/5 p-3 rounded-2xl rounded-tl-none text-sm text-gray-300 max-w-[85%]">Xin chào! Tôi có thể giúp gì cho bạn?</div></div><div class="p-3 bg-[#0f172a] border-t border-white/10"><div class="relative"><input type="text" id="chatInput" placeholder="Nhập tin nhắn..." class="w-full bg-black/30 rounded-full py-2.5 px-4 pr-10 text-sm text-white focus:outline-none focus:ring-1 focus:ring-primary/50 border border-white/5" onkeypress="handleChatKey(event)"><button onclick="sendMessage()" class="absolute right-1.5 top-1/2 -translate-y-1/2 w-7 h-7 bg-primary text-black rounded-full flex items-center justify-center hover:bg-secondary transition shadow-sm"><i class="fa-solid fa-paper-plane text-[10px]"></i></button></div></div></div>
     <footer class="bg-[#020617] border-t border-white/5 pt-16 pb-8 mt-auto"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center"><div class="flex justify-center items-center gap-3 mb-6"><img src="https://i.postimg.cc/Pf0QZgWq/Chat-GPT-Image-16-18-40-3-thg-12-2025.png" alt="Logo" class="h-14 w-auto rounded-lg object-contain"><span class="text-2xl font-bold text-white font-tech">Thế Giới Di Động</span></div><p class="text-gray-500 text-sm mb-8">Đẳng cấp công nghệ - Trải nghiệm xứng tầm.</p><div class="flex justify-center gap-6 mb-8"><a href="#" class="text-gray-400 hover:text-white"><i class="fa-brands fa-facebook text-xl"></i></a><a href="mailto:nghianoob9@gmail.com" class="text-gray-400 hover:text-white"><i class="fa-solid fa-envelope text-xl"></i></a></div><div class="border-t border-white/5 pt-8"><p class="text-xs text-gray-600">&copy; 2025 Y NGHIA HLONG. All rights reserved.</p></div></div></footer>
     <div id="productModal" class="fixed inset-0 z-[100] hidden overflow-y-auto"><div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0"><div class="fixed inset-0 bg-black/90 backdrop-blur-sm transition-opacity" onclick="closeModal()"></div><div class="inline-block align-middle bg-[#0f172a] rounded-[2rem] text-left overflow-hidden shadow-2xl transform transition-all sm:max-w-4xl sm:w-full relative border border-white/10"><button type="button" class="absolute top-4 right-4 z-10 w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/20 transition" onclick="closeModal()"><i class="fa-solid fa-xmark text-xl"></i></button><div class="flex flex-col md:flex-row"><div class="md:w-1/2 bg-black/30 p-8 flex items-center justify-center relative"><img id="modalImage" src="" alt="Detail" class="max-h-[400px] w-auto object-contain relative z-10"></div><div class="md:w-1/2 p-8 md:p-10"><div class="flex justify-between items-start"><span class="text-primary text-xs font-bold uppercase tracking-wider bg-primary/10 px-2 py-1 rounded mb-3 inline-block">Chính hãng</span><span class="text-gray-500 text-xs ml-2 mt-1">Mã: <span id="modalCode" class="text-white"></span></span></div><h3 class="text-3xl font-bold text-white mb-2" id="modalTitle"></h3><p id="modalPrice" class="text-3xl font-bold text-primary mb-6"></p><p id="modalDesc" class="text-gray-400 text-sm mb-8 leading-relaxed"></p><div class="bg-white/5 rounded-2xl p-6 mb-8 border border-white/5"><h4 class="font-bold text-white text-sm mb-4">Thông số kỹ thuật</h4><div class="grid grid-cols-2 gap-y-3 gap-x-4 text-sm text-gray-400" id="modalSpecs"></div></div><div class="flex gap-4"><button id="modalAddToCartBtn" class="flex-1 bg-transparent border border-primary text-primary hover:bg-primary hover:text-black font-bold py-3.5 px-4 rounded-xl transition flex items-center justify-center gap-2"><i class="fa-solid fa-cart-plus"></i> Thêm giỏ</button><button id="modalBuyNowBtn" class="flex-1 btn-glow py-3.5 px-4 rounded-xl transition shadow-lg shadow-primary/20 hover:shadow-primary/40">Mua ngay</button></div></div></div></div></div></div>
 
@@ -415,31 +406,62 @@
             const total = new Intl.NumberFormat('vi-VN').format(cart.reduce((a,b)=>a+b.price*b.qty,0))+'đ';
             document.getElementById('cartTotal').innerText = total; document.getElementById('checkoutTotal').innerText = total;
             document.getElementById('bankTransferAmount').innerText = total;
-            document.getElementById('qrCodeImg').src = `https://img.vietqr.io/image/MB-0388977874-compact2.jpg?amount=${cart.reduce((a,b)=>a+b.price*b.qty,0)}&addInfo=THANH%20TOAN&accountName=Y%20NGHIA%20HLONG`;
+            document.getElementById('qrCodeImg').src = `https://i.postimg.cc/fbV25FnS/z7437283790022-dd8fe9b483325a7c134e6d2206b6a7a9.jpg`;
         }
         function openCheckout() { if(cart.length===0){alert("Giỏ hàng trống");return;} toggleCart(); document.getElementById('checkoutModal').classList.remove('hidden'); toggleBankInfo(false); }
         function closeCheckout() { document.getElementById('checkoutModal').classList.add('hidden'); }
         function toggleBankInfo(show) { const p = document.getElementById('bankInfoPanel'); if(show) p.classList.remove('hidden'); else p.classList.add('hidden'); }
         function processCheckout(e) { e.preventDefault(); showToast("Đặt hàng thành công!"); cart=[]; updateCartUI(); closeCheckout(); }
 
-        // Auth (Switch Mode Logic - Updated)
+        // Auth
         function toggleAuthModal() { 
             if(isLoggedIn) {
                 document.getElementById('userDropdown').classList.toggle('hidden'); 
             } else { 
                 document.getElementById('authModal').classList.toggle('hidden'); 
-                switchAuthMode('login'); 
+                switchAuthMode('login'); // Reset
             } 
         }
-        
+
         function switchAuthMode(mode) {
-            const login = document.getElementById('loginContainer'); const register = document.getElementById('registerContainer');
-            if (mode === 'login') { login.classList.remove('hidden'); register.classList.add('hidden'); }
-            else { login.classList.add('hidden'); register.classList.remove('hidden'); }
+            const login = document.getElementById('loginContainer');
+            const register = document.getElementById('registerContainer');
+            const google = document.getElementById('googleContainer');
+            const facebook = document.getElementById('facebookContainer');
+            
+            // Hide all first
+            login.classList.add('hidden');
+            register.classList.add('hidden');
+            google.classList.add('hidden');
+            facebook.classList.add('hidden');
+            
+            // Show specific
+            if (mode === 'login') login.classList.remove('hidden');
+            else if (mode === 'register') register.classList.remove('hidden');
+            else if (mode === 'Google') google.classList.remove('hidden');
+            else if (mode === 'Facebook') facebook.classList.remove('hidden');
         }
-        function handleLogin(e) { e.preventDefault(); handleSocialLogin('Email'); }
-        function handleRegister(e) { e.preventDefault(); handleSocialLogin('Đăng ký'); }
-        function handleSocialLogin(p) { isLoggedIn=true; currentUser={name:`${p} User`, avatar: null}; localStorage.setItem('tgdd_user',JSON.stringify(currentUser)); updateUserUI(); document.getElementById('authModal').classList.add('hidden'); showToast(`Đăng nhập ${p} thành công`); }
+        
+        // Use Mock forms now
+        function showSocialForm(provider) { switchAuthMode(provider); }
+        function backToMainAuth() { switchAuthMode('login'); }
+
+        function handleSocialSubmit(e, provider) {
+            e.preventDefault();
+            setTimeout(() => {
+                isLoggedIn = true;
+                currentUser = { name: `${provider} User`, avatar: null };
+                localStorage.setItem('tgdd_user', JSON.stringify(currentUser));
+                updateUserUI();
+                document.getElementById('authModal').classList.add('hidden');
+                navigate('home'); 
+                showToast(`Đăng nhập ${provider} thành công!`);
+            }, 1000);
+        }
+
+        function handleLogin(e) { e.preventDefault(); handleSocialSubmit(e, 'Email'); } // Mock
+        function handleRegister(e) { e.preventDefault(); handleSocialSubmit(e, 'Đăng ký'); } // Mock
+
         function handleLogout() { isLoggedIn=false; currentUser=null; localStorage.removeItem('tgdd_user'); updateUserUI(); showToast('Đã đăng xuất'); }
         function updateUserUI() { 
             const nameEl = document.getElementById('userNameDisplay');
@@ -474,33 +496,21 @@
             document.getElementById('profileModal').classList.remove('hidden');
             document.getElementById('userDropdown').classList.add('hidden');
         }
-
-        function closeProfile() {
-            document.getElementById('profileModal').classList.add('hidden');
-        }
-
+        function closeProfile() { document.getElementById('profileModal').classList.add('hidden'); }
         function handleAvatarChange(input) {
             if (input.files && input.files[0]) {
                 const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('profileAvatarPreview').src = e.target.result;
-                }
+                reader.onload = function(e) { document.getElementById('profileAvatarPreview').src = e.target.result; }
                 reader.readAsDataURL(input.files[0]);
             }
         }
-
         function saveProfile(e) {
             e.preventDefault();
             const newName = document.getElementById('profileNameInput').value;
             const newAvatar = document.getElementById('profileAvatarPreview').src;
-            
-            currentUser.name = newName;
-            currentUser.avatar = newAvatar;
-            
+            currentUser.name = newName; currentUser.avatar = newAvatar;
             localStorage.setItem('tgdd_user', JSON.stringify(currentUser));
-            updateUserUI();
-            showToast('Cập nhật hồ sơ thành công!');
-            closeProfile();
+            updateUserUI(); showToast('Cập nhật hồ sơ thành công!'); closeProfile();
         }
 
         // Utils
@@ -514,7 +524,7 @@
         function sendMessage() {
             const input = document.getElementById('chatInput'); const msg = input.value.trim(); if(!msg) return;
             const d = document.createElement('div'); d.className='flex justify-end'; d.innerHTML=`<div class="bg-primary text-black p-2 rounded-xl text-sm font-bold">${msg}</div>`; document.getElementById('chatMessages').appendChild(d);
-            const keywords = { 'giá': 'Dạ giá sản phẩm được niêm yết trên website ạ. Bạn quan tâm mẫu nào?', 'bảo hành': 'Sản phẩm được bảo hành chính hãng 12 tháng, 1 đổi 1 trong 30 ngày đầu nếu lỗi.', 'địa chỉ': 'Shop ở Phường Tân An, TP. Buôn Ma Thuột ạ.', 'ship': 'Shop miễn phí vận chuyển toàn quốc cho đơn từ 500k.', 'iphone': 'Dạ bên em có sẵn các dòng iPhone 14, 16 và 17 concept ạ.', 'laptop': 'Laptop đang có ưu đãi giảm giá sốc, bạn xem mục Laptop nhé.', 'hello': 'Chào bạn! Mình là Trợ lý ảo của Nghĩa. Mình có thể giúp gì cho bạn?', 'chào': 'Chào bạn! Mình là Trợ lý ảo của Nghĩa. Mình có thể giúp gì cho bạn?' };
+            const keywords = { 'giá': 'Dạ giá sản phẩm được niêm yết trên website ạ. Bạn quan tâm mẫu nào?', 'bảo hành': 'Sản phẩm được bảo hành chính hãng 12 tháng, 1 đổi 1 trong 30 ngày đầu nếu lỗi.', 'địa chỉ': 'Shop ở Phường Tân An, TP. Buôn Ma Thuột ạ.', 'ship': 'Shop miễn phí vận chuyển toàn quốc cho đơn từ 500k.', 'iphone': 'Dạ bên em có sẵn các dòng iPhone 14, 16 và 17 concept ạ.', 'laptop': 'Laptop đang có ưu đãi giảm giá sốc, bạn xem mục Laptop nhé.', 'hello': 'Chào bạn! Mình là Chatbot. Mình có thể giúp gì cho bạn?', 'chào': 'Chào bạn! Mình là Chatbot. Mình có thể giúp gì cho bạn?' };
             let reply = "Dạ câu này hơi khó, bạn vui lòng liên hệ hotline 0388 977 874 để được tư vấn kỹ hơn nha!";
             const lowerMsg = msg.toLowerCase(); for (const key in keywords) { if (lowerMsg.includes(key)) { reply = keywords[key]; break; } }
             input.value=''; 
